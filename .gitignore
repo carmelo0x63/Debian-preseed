@@ -1,0 +1,6 @@
+*.proj/
+*.iso
+destination_iso/
+source_iso/
+workdir/
+loopdir/
