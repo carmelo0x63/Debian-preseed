@@ -17,9 +17,14 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 read -p "Enter project name: " PROJECT
-if [ PROJECT -eq "" ]; then
+if [ -z "$PROJECT" ]; then
     echo "[-] Project name is mandatory"
     exit 255
+fi
+
+if [ ! -d "${PROJECT}.proj" ]; then
+    echo "[-] Project '${PROJECT}.proj' not found, quitting!"
+    exit 10
 fi
 
 
@@ -36,7 +41,7 @@ WORKDIR="$PROJECT.proj/workdir"
 LOOPDIR="$PROJECT.proj/loopdir"
 ISODIR="$WORKDIR/isodir"
 
-PRESEED_FILE="./preseed.cfg"
+PRESEED_FILE="${PROJECT}.proj/preseed.cfg"
 PRESEED_ISO="$PROJECT.proj/destination_iso/debian-$DEBVER-$DEBARCH-netinst-preseed.iso"
 
 

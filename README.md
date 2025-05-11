@@ -17,7 +17,7 @@ The ISO file is based on an official Debian installation ISO, e.g. `debian-12.10
 ### Procedure
 1. Set up the directory structure
 ```
-$ ./preseed_init.sh -d <project_name>
+$ ./preseed_init.sh -p <project_name>
 [+] Creating/updating hierarchy in directory '<project_name>.proj'
 [+] NEW directory <project_name>.proj created, OK
 [+] NEW directory <project_name>.proj/destination_iso created, OK
@@ -30,12 +30,25 @@ $ ./preseed_init.sh -d <project_name>
 ```
 $ curl -sSLfO https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-12.10.0-amd64-netinst.iso
 
-$ mv debian-12.10.0-amd64-netinst.iso source_iso/
+$ mv debian-12.10.0-amd64-netinst.iso <project_name>.proj/source_iso/
 ```
 
 3. Generate the customized `preseed.cfg`
 ```
 $ ./dicustomizer.sh
+[+] Generating 'preseed.cfg' from template... done!
+Enter hostname (e.g. testhost): myhost
+[+] Setting hostname... done!
+Enter username (e.g. myuser): usrone
+[+] Setting username... done!
+Enter password (e.g. mypassword):
+[+] Setting password... done!
+Enter Ethernet interface IP address (e.g. 192.0.2.117): 192.168.100.100
+[+] Setting IP address... done!
+Enter disk device name (e.g. sda [default], vda,...): vda
+[+] Setting device name... done!
+[+] Customization complete!
+[+] Destination directory: ./
 ```
 
 4. Finally, create the customized ISO

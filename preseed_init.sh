@@ -6,7 +6,7 @@
 # author: Carmelo C
 # email: carmelo.califano@gmail.com
 # history, date format ISO 8601:
-#  2025-05-10: More edits
+#  2025-05-11: More edits
 #  2024-01-09: First release
 
 # Setup
@@ -27,7 +27,7 @@ usage() {
     echo "Command list:"
     echo -e "\t-h: Help"
     echo -e "\t-V: Version"
-    echo -e "\t-d: Project name (destination directory)\n"
+    echo -e "\t-p: Project name (destination directory)\n"
 }
 
 newDir() {
@@ -61,27 +61,15 @@ main() {
     echo "*.iso" > $DESTDIR/.gitignore
     echo "workdir/" >> $DESTDIR/.gitignore
     echo "loopdir/" >> $DESTDIR/.gitignore
-
-#    echo -e "${GREEN}[+]${NC} Creating $DESTDIR/iso_destination/.gitignore"
-#    newFile $DESTDIR/iso_destination/.gitignore new
-#    echo "*.iso" > $DESTDIR/iso_destination/.gitignore
-
-#    echo -e "${GREEN}[+]${NC} Creating $DESTDIR/iso_source/.gitignore"
-#    newFile $DESTDIR/iso_source/.gitignore new
-#    echo "*.iso" > $DESTDIR/iso_source/.gitignore
-
-#    echo -e "${GREEN}[+]${NC} Creating $DESTDIR/workdir/.gitignore"
-#    newFile $DESTDIR/workdir/.gitignore new
-#    echo "*.iso" > $DESTDIR/workdir/.gitignore
 }
 
-while getopts ":hd:V" opt; do
+while getopts ":hp:V" opt; do
   case ${opt} in
     h ) # help
       usage
       exit 0
       ;;
-    d ) # project/directory
+    p ) # project/directory
       DESTDIR="$OPTARG.proj"
       main
       exit 0
