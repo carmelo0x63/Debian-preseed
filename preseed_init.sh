@@ -17,10 +17,11 @@
 VERSION="1.0"
 
 # ANSI colors
-RED="\033[0;31m"
-GREEN="\033[0;32m"
-ORANGE="\033[0;33m"
+RED="\033[0;31m"     # red = Error
+GREEN="\033[0;32m"   # green = OK
+ORANGE="\033[0;33m"  # orange = Warning
 NC="\033[0m"         # No Color
+
 
 usage() {
     echo "Usage: ${0##*/} [command] <project_name>"
@@ -30,6 +31,7 @@ usage() {
     echo -e "\t-p: Project name (destination directory)\n"
 }
 
+
 newDir() {
     if [ ! -d "$1" ]; then
         mkdir "$1"
@@ -38,6 +40,7 @@ newDir() {
         echo -e "${ORANGE}[!]${NC} Directory '$1' already exists, skipping..."
     fi
 }
+
 
 newFile() {
     if [ ! -f "$1" ]; then
@@ -50,18 +53,20 @@ newFile() {
     fi
 }
 
+
 main() {
-    echo -e "${GREEN}[+]${NC} Creating/updating hierarchy in directory '$DESTDIR'"
-    newDir "${DESTDIR}"
+    echo -e "${GREEN}[+]${NC} Creating/updating hierarchy in directory '$PROJECT'"
+    newDir "${PROJECT}"
 
     for dirname in destination_iso source_iso workdir loopdir; do
-        newDir "${DESTDIR}/${dirname}"
+        newDir "${PROJECT}/${dirname}"
     done
 
-    echo "*.iso" > "${DESTDIR}"/.gitignore
-    echo "workdir/" >> "${DESTDIR}"/.gitignore
-    echo "loopdir/" >> "${DESTDIR}"/.gitignore
+    echo "*.iso" > "${PROJECT}"/.gitignore
+    echo "workdir/" >> "${PROJECT}"/.gitignore
+    echo "loopdir/" >> "${PROJECT}"/.gitignore
 }
+
 
 while getopts ":hp:V" opt; do
   case ${opt} in
@@ -70,7 +75,7 @@ while getopts ":hp:V" opt; do
       exit 0
       ;;
     p ) # project/directory
-      DESTDIR="$OPTARG.proj"
+      PROJECT="$OPTARG.proj"
       main
       exit 0
       ;;
@@ -97,4 +102,3 @@ if [ "$OPTIND" -lt 2 ]; then
   usage
   exit 1
 fi
-
