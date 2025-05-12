@@ -6,7 +6,7 @@
 # author: Carmelo C
 # email: carmelo.califano@gmail.com
 # history, date format ISO 8601:
-#  2025-05-11: More edits
+#  2025-05-12: More edits
 #  2024-01-09: First release
 
 # Setup
@@ -31,20 +31,20 @@ usage() {
 }
 
 newDir() {
-    if [ ! -d $1 ]; then
-        mkdir $1
-        echo -e "${GREEN}[+]${NC} NEW directory $1 created, OK"
+    if [ ! -d "$1" ]; then
+        mkdir "$1"
+        echo -e "${GREEN}[+]${NC} NEW directory '$1' created, OK"
     else
-        echo -e "${ORANGE}[!]${NC} Directory $1 already exists, skipping..."
+        echo -e "${ORANGE}[!]${NC} Directory '$1' already exists, skipping..."
     fi
 }
 
 newFile() {
-    if [ ! -f $1 ]; then
+    if [ ! -f "$1" ]; then
         case "$2" in
-              new)     touch $1;;
+              new)     touch "$1";;
         esac
-        echo -e "${GREEN}[+]${NC} NEW file $1 created, mode '$2', OK"
+        echo -e "${GREEN}[+]${NC} NEW file '$1' created, mode '$2', OK"
     else
         echo -e "${ORANGE}[!]${NC} File $1 already exists, skipping..."
     fi
@@ -52,15 +52,15 @@ newFile() {
 
 main() {
     echo -e "${GREEN}[+]${NC} Creating/updating hierarchy in directory '$DESTDIR'"
-    newDir $DESTDIR
+    newDir "${DESTDIR}"
 
     for dirname in destination_iso source_iso workdir loopdir; do
-        newDir $DESTDIR/$dirname
+        newDir "${DESTDIR}/${dirname}"
     done
 
-    echo "*.iso" > $DESTDIR/.gitignore
-    echo "workdir/" >> $DESTDIR/.gitignore
-    echo "loopdir/" >> $DESTDIR/.gitignore
+    echo "*.iso" > "${DESTDIR}"/.gitignore
+    echo "workdir/" >> "${DESTDIR}"/.gitignore
+    echo "loopdir/" >> "${DESTDIR}"/.gitignore
 }
 
 while getopts ":hp:V" opt; do

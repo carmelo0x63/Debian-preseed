@@ -3,7 +3,7 @@
 # author: Carmelo C
 # email: carmelo.califano@gmail.com
 # history, date format ISO 8601:
-#  2025-05-10: More edits
+#  2025-05-12: More edits
 #  2024-01-10: Minor edits
 #  2024-01-09: First release
 
@@ -13,7 +13,7 @@ SUBNETNAME="example.org"
 # source: https://stackoverflow.com/questions/59895/how-do-i-get-the-directory-where-a-bash-script-is-located-from-within-the-script
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-read -p "Enter project name: " PROJECT
+read -rp "Enter project name: " PROJECT
 if [ -z "${PROJECT}" ]; then
     echo "[-] Project name is mandatory"
     exit 255
@@ -35,32 +35,32 @@ echo -n "[+] Generating '${OUTPUTFILE}' from template... "
 cp "$SCRIPT_DIR/$TEMPLATENAME" "${PROJECT}.proj/${OUTPUTFILE}"
 echo "done!"
 
-read -p "Enter hostname (e.g. testhost): " HOSTNAME
+read -rp "Enter hostname (e.g. testhost): " HOSTNAME
 HOSTNAME=${HOSTNAME:-testhost}
 echo -n "[+] Setting hostname... "
 sed -i "s/THISHOSTNAME/${HOSTNAME}/" "${PROJECT}.proj/${OUTPUTFILE}"
 sed -i "s/THISSUBNET/${SUBNETNAME}/" "${PROJECT}.proj/${OUTPUTFILE}"
 echo "done!"
 
-read -p "Enter username (e.g. myuser): " USERNAME
+read -rp "Enter username (e.g. myuser): " USERNAME
 USERNAME=${USERNAME:-myuser}
 echo -n "[+] Setting username... "
 sed -i "s/THISUSERNAME/${USERNAME}/" "${PROJECT}.proj/${OUTPUTFILE}"
 echo "done!"
 
-read -s -p "Enter password (e.g. mypassword): " PASSWORD
+read -s -rp "Enter password (e.g. mypassword): " PASSWORD
 PASSWORD=${PASSWORD:-mypassword}
 echo; echo -n "[+] Setting password... "
 sed -i "s/THISPASSWORD/${PASSWORD}/" "${PROJECT}.proj/${OUTPUTFILE}"
 echo "done!"
 
-read -p "Enter Ethernet interface IP address (e.g. 192.0.2.117): " IPADDR
+read -rp "Enter Ethernet interface IP address (e.g. 192.0.2.117): " IPADDR
 IPADDR=${IPADDR:-192.0.2.117}
 echo -n "[+] Setting IP address... "
 sed -i "s/THISIPADDR/${IPADDR}/" "${PROJECT}.proj/${OUTPUTFILE}"
 echo "done!"
 
-read -p "Enter disk device name (e.g. sda [default], vda,...): " DEVNAME
+read -rp "Enter disk device name (e.g. sda [default], vda,...): " DEVNAME
 DEVNAME=${DEVNAME:-sda}
 echo -n "[+] Setting device name... "
 sed -i "s/THISDEVNAME/${DEVNAME}/" "${PROJECT}.proj/${OUTPUTFILE}"
